@@ -37,7 +37,7 @@ return [
 
     'guards' => [
         'admin' => [
-            'driver' => 'token',
+            'driver' => 'sanctum',
             'provider' => 'admins',
         ]
     ],

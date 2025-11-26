@@ -11,4 +11,5 @@ class Admin extends Model
     use  HasApiTokens;
     protected $table = 'admins';
     protected $fillable = ["username", "password","profile", "fullname"];
+    public $timestamps = true;
 }

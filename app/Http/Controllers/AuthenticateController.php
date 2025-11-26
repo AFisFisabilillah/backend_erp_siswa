@@ -41,7 +41,6 @@ class AuthenticateController extends Controller
             'status' => true,
             'message' => 'Login berhasil',
             'token' => $token,
-            'user' => $admin
         ]);
     }
 

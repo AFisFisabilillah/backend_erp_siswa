@@ -17,7 +17,7 @@ class SiswaController extends Controller
 
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where('nama_lengkap', 'like', "%{$search}%")
+            $query->whereFullText('nama_lengkap', $search)
                 ->orWhere('nisn', 'like', "%{$search}%");
         }
 
@@ -53,14 +53,27 @@ class SiswaController extends Controller
     }
 
 
-    public function show(Siswa $siswa)
+    public function show(int $siswaId)
     {
+        $siswa = Siswa::find($siswaId);
+        if (!$siswa){
+            return response()->json([
+                "messages"=>"Siswa tidak ditemukan"
+            ], 404);
+        }
         return new SiswaResource($siswa);
     }
 
-    public function update(SiswaRequest $request, Siswa $siswa)
+    public function update(SiswaRequest $request, int $siswaId)
     {
         $data = $request->validated();
+
+        $siswa = Siswa::find($siswaId);
+        if (!$siswa){
+            return response()->json([
+                "messages"=>"Siswa tidak ditemukan"
+            ], 404);
+        }
 
         if ($request->hasFile('foto')) {
             if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
@@ -80,8 +93,15 @@ class SiswaController extends Controller
     }
 
 
-    public function destroy(Siswa $siswa)
+    public function destroy(int $siswaId)
     {
+        $siswa = Siswa::find($siswaId);
+        if (!$siswa){
+            return response()->json([
+                "messages"=>"Siswa tidak ditemukan"
+            ], 404);
+        }
+
         // Hapus file foto dari storage saat data dihapus
         if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
             Storage::disk('public')->delete($siswa->foto);
@@ -99,6 +119,7 @@ class SiswaController extends Controller
      */
     public function import(Request $request)
     {
+
         // Validasi file harus excel
         $request->validate([
             'file' => 'required|mimes:xlsx,xls,csv'
