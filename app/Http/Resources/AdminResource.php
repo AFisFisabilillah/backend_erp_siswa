@@ -16,7 +16,6 @@ class AdminResource extends JsonResource
             'profile' => $this->profile,
             'username' => $this->username,
             'fullname' => $this->fullname,
-            'password' => $this->password,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

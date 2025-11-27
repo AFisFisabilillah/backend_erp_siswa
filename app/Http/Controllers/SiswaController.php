@@ -114,9 +114,7 @@ class SiswaController extends Controller
         ]);
     }
 
-    /**
-     * Import data dari Excel
-     */
+
     public function import(Request $request)
     {
 

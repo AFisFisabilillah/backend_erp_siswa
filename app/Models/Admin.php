@@ -12,4 +12,6 @@ class Admin extends Model
     protected $table = 'admins';
     protected $fillable = ["username", "password","profile", "fullname"];
     public $timestamps = true;
+
+    protected $hidden = ["password"];
 }
