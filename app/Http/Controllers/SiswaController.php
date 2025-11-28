@@ -17,16 +17,30 @@ class SiswaController extends Controller
 
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->whereFullText('nama_lengkap', $search)
-                ->orWhere('nisn', 'like', "%{$search}%");
+
+            $query->where(function ($q) use ($search) {
+                $q->whereFullText('nama_lengkap', $search)
+                    ->orWhere('nisn', '=', $search);
+            });
         }
 
         if ($request->filled('tanggal_lahir')) {
             $query->whereDate('tanggal_lahir', $request->tanggal_lahir);
         }
 
-        $siswas = $query->latest()->paginate(10);
+        if ($request->filled('jenis_kelamin')) {
+            $query->where('jenis_kelamin', $request->jenis_kelamin);
+        }
 
+        if ($request->filled('agama')) {
+            $query->where('agama', $request->agama);
+        }
+
+        if ($request->filled('jurusan')) {
+            $query->where('jurusan', $request->jurusan);
+        }
+
+        $siswas = $query->latest()->paginate(10);
 
         return SiswaResource::collection($siswas);
     }
