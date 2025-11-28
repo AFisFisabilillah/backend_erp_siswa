@@ -16,7 +16,6 @@ class AdminController extends Controller
     {
         $query = Admin::query();
 
-        // Fitur Search: Fullname ATAU Username
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
@@ -95,9 +94,7 @@ class AdminController extends Controller
             unset($data['password']);
         }
 
-        // 2. Handle Update Foto Profile
         if ($request->hasFile('profile')) {
-            // Hapus foto lama jika ada di storage
             if ($admin->profile && Storage::disk('public')->exists($admin->profile)) {
                 Storage::disk('public')->delete($admin->profile);
             }

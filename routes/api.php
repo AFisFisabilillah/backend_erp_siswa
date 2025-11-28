@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Http\Request;
@@ -16,4 +17,10 @@ Route::middleware('auth:admin')->group(function () {
     Route::get("/siswa/{siswaId}", [SiswaController::class, "show"]);
     Route::get("/siswa", [SiswaController::class, "index"]);
     Route::post("/siswa/import", [SiswaController::class, "import"]);
+
+    Route::get("/admin", [AdminController::class, "index"]);
+    Route::post("/admin", [AdminController::class, "store"]);
+    Route::post("/admin/{adminId}", [AdminController::class, "update"]);
+    Route::delete("/admin/{adminId}", [AdminController::class, "destroy"]);
+    Route::get("/admin/{adminId}", [AdminController::class, "show"]);
 });
