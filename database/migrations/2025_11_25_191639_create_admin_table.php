@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->string('profile')->nullable();
+            $table->string('profile')->nullable()->default("admin_profiles/no_profile.jpeg");
             $table->string('username')->unique("username");
             $table->string('fullname');
             $table->string('password');

@@ -25,7 +25,7 @@ class SiswaResource extends JsonResource
             "nama_ibu" => $this->nama_ibu,
             "alamat" => $this->alamat,
             "no_telp" => $this->no_telp,
-            "foto" => $this->foto,
+            "foto" => $this->foto == "no_profile.jpeg" ? asset( $this->foto) : asset("storage/" . $this->foto),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
         ];

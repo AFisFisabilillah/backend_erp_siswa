@@ -37,6 +37,8 @@ class AdminController extends Controller
         if ($request->hasFile('profile')) {
             $path = $request->file('profile')->store('admin_profiles', 'public');
             $data['profile'] = $path;
+        }else{
+            $data['profile'] = "no_profile.jpeg";
         }
 
         $admin = Admin::create($data);

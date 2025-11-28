@@ -28,7 +28,7 @@ class SiswaImport implements ToModel, WithHeadingRow
             'nama_ayah'     => $row['nama_ayah'],
             'no_telp'       => $row['no_telp'],
             'jurusan'       => $row['jurusan'],
-            'foto'          => null,
+            'foto'          => "no_profile.jpeg",
         ]);
     }
 }

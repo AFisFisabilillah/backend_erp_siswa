@@ -41,7 +41,7 @@ class SiswaRequest extends FormRequest
             "nama_ibu" => "required|string",
             "nama_ayah" => "required|string",
             "no_telp"=> ["required","string"],
-            "foto" => "nullable|image|mimes:jpeg,jpg,png,gif|max:2048", // Max 2MB
+            "foto" => "nullable|image|mimes:jpeg,jpg,png,gif|max:10048", // Max 2MB
             "jurusan" => "required|string",
         ];
     }

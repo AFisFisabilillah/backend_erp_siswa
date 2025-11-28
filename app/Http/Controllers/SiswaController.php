@@ -28,10 +28,7 @@ class SiswaController extends Controller
         $siswas = $query->latest()->paginate(10);
 
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $siswas
-        ]);
+        return SiswaResource::collection($siswas);
     }
 
 
@@ -42,14 +39,14 @@ class SiswaController extends Controller
         if ($request->hasFile('foto')) {
             $path = $request->file('foto')->store('siswa_fotos', 'public');
             $data['foto'] = $path;
+        }else{
+            $data['foto'] = "no_profile.jpeg";
         }
 
         $siswa = Siswa::create($data);
 
-        return response()->json([
-            'message' => 'Siswa berhasil ditambahkan',
-            'data' => $siswa
-        ], 201);
+        return new SiswaResource($siswa);
+
     }
 
 
@@ -86,10 +83,8 @@ class SiswaController extends Controller
 
         $siswa->update($data);
 
-        return response()->json([
-            'message' => 'Data siswa berhasil diperbarui',
-            'data' => $siswa
-        ]);
+        return new SiswaResource($siswa);
+
     }
 
 
@@ -118,7 +113,6 @@ class SiswaController extends Controller
     public function import(Request $request)
     {
 
-        // Validasi file harus excel
         $request->validate([
             'file' => 'required|mimes:xlsx,xls,csv'
         ]);
